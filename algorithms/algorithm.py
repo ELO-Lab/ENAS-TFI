@@ -53,8 +53,6 @@ class Algorithm:
         self.path_results = None
         self.debug = False
 
-
-
         """ [Method] - Warmup """
         self.zero_cost_method = None
         self.zero_cost_predictor = None

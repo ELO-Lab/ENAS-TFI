@@ -15,7 +15,7 @@ population_size_dict = {
 }
 
 def main(kwargs):
-    path_data = '/'.join(os.path.abspath(__file__).split('\\')[:-1]) + '/data'
+    path_data = '/'.join(os.path.abspath(__file__).split('/')[:-1]) + '/data'
     problem = get_problem(problem_name=kwargs.problem_name, path_data=path_data)
     problem.set_up()
     ''' ==================================================================================================== '''

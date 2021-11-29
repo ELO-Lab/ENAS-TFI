@@ -50,8 +50,9 @@ class NSGAII(Algorithm):
                                                                       f'population_{self.zero_cost_method}_'
                                                                       f'{self.nSamples_for_warm_up}_{self.seed}.p', 'wb'))
             set_seed(self.seed)
-            P = Population(self.pop_size)
+            print(P_X)
             for i, X in enumerate(P_X):
+                print(X)
                 hashKey = get_hashKey(X, problem_name=self.problem.name)
                 F = self.evaluate(X)
                 P[i].set('X', X)

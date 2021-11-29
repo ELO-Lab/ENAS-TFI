@@ -17,9 +17,9 @@ def get_population_X(tmp_P, pop_size, problem, zc_predictor):
             X_modified = modify_input_for_fitting(tmp_P[i].X, problem.name)
 
             score = zc_predictor.query_one_arch(X_modified)
-            efficiency_metric = problem.get_efficiency_metric(tmp_P[i].X)
+            complexity_metric = problem.get_complexity_metric(tmp_P[i].X)
 
-            tmp_P_F.append([efficiency_metric, -score])
+            tmp_P_F.append([complexity_metric, -score])
     else:
         raise ValueError()
 
@@ -32,7 +32,7 @@ def get_k_best_solutions(type_of_problem, tmp_P, tmp_P_F, k):
         idx = np.argsort(tmp_P_F)
         idx = np.flipud(idx)
         P_X = tmp_P[idx[:k]]
-        return P_X
+        return np.array(P_X)
 
     elif type_of_problem == 'multi-objective':
         P_X = []
