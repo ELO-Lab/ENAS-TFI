@@ -31,7 +31,10 @@ def get_k_best_solutions(type_of_problem, tmp_P, tmp_P_F, k):
     if type_of_problem == 'single-objective':
         idx = np.argsort(tmp_P_F)
         idx = np.flipud(idx)
-        P_X = tmp_P[idx[:k]]
+        tmp_P_ = tmp_P[idx[:k]]
+        P_X = []
+        for idv in tmp_P_:
+            P_X.append(idv.X)
         return np.array(P_X)
 
     elif type_of_problem == 'multi-objective':
