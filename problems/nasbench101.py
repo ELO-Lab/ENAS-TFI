@@ -96,12 +96,10 @@ class NASBench101(Problem):
             self.pareto_front_validation = p.load(f_pareto_front_validation)
             f_pareto_front_validation.close()
 
-            print('--> Notification: Set Up - Done')
-
         else:
             raise ValueError()
 
-        print('--> Notification: Set Up - Done')
+        print('--> Set Up - Done')
 
     def X2matrices(self, X):
         edges_matrix = np.zeros((7, 7), dtype=np.int8)
