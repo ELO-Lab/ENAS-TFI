@@ -34,7 +34,8 @@ def get_nEvals_and_IGD(pop_size):
         IGD_each_run = []
         nEvals_each_run = []
 
-        for i in range(N_RUNS):
+        n_runs = len(os.listdir(exp)) - 1
+        for i in range(n_runs):
             path_result = os.path.join(exp, f'{i}')
             tmp_data = np.array(p.load(open(os.path.join(path_result, '#Evals_and_IGD_each_gen.p'), 'rb')))
             idx_nEvals_history = np.array(tmp_data[0], dtype=int) - 1
@@ -141,7 +142,8 @@ def visualize_nEvals_and_IGD(logX=None, logY=None):
 def get_reference_point():
     max_f0, max_f1 = -np.inf, -np.inf
     for exp in experiments_list:
-        for i in range(N_RUNS):
+        n_runs = len(os.listdir(exp)) - 1
+        for i in range(n_runs):
             f_reference_pt = os.path.join(exp, f'{i}', 'reference_point(evaluate).p')
             f0, f1 = p.load(open(f_reference_pt, 'rb'))
             max_f0 = max(max_f0, f0)
@@ -166,7 +168,8 @@ def get_nEvals_and_Hypervolume(hypervolume_calculator, reference_point, pop_size
         hypervolume_each_run = []
         nEvals_each_run = []
 
-        for i in range(N_RUNS):
+        n_runs = len(os.listdir(exp)) - 1
+        for i in range(n_runs):
             path_result = os.path.join(exp, f'{i}')
             tmp_data = np.array(p.load(open(os.path.join(path_result, '#Evals_and_IGD_each_gen.p'), 'rb')))
             idx_nEvals_history = np.array(tmp_data[0], dtype=int) - 1
@@ -299,7 +302,6 @@ if __name__ == '__main__':
     LOG_X = True
     LOG_Y = False
     PATH_RESULTS = args.path_results
-    N_RUNS = 21
     checked_lst = ['IGD', 'Hypervolume', 'nEvals', 'png']
     """ =========================================== """
     exp_0 = None

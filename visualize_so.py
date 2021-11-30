@@ -100,7 +100,8 @@ def get_nGens_and_Accuracy():
         test_accuracy_each_run = []
         nGens_each_run = []
 
-        for i in range(N_RUNS):
+        n_runs = len(os.listdir(exp)) - 1
+        for i in range(n_runs):
             path_result = os.path.join(exp, f'{i}')
             nGens_history, best_arch_history = p.load(open(os.path.join(path_result, 'best_architecture_each_gen.p'), 'rb'))
 
@@ -249,7 +250,6 @@ if __name__ == '__main__':
     LOG_X = False
     LOG_Y = False
     PATH_RESULTS = args.path_results
-    N_RUNS = 21
     checked_lst = ['IGD', 'Hypervolume', 'nEvals', 'png']
 
     from sys import platform
