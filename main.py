@@ -88,7 +88,6 @@ def main(kwargs):
         f.write(f'******* PROBLEM *******\n')
         f.write(f'- Benchmark: {problem.name}\n')
         f.write(f'- Dataset: {problem.dataset}\n')
-        f.write(f'- Training epoch: 200\n')
         f.write(f'- Maximum number of evaluations: {problem.maxEvals}\n')
         f.write(f'- List of objectives: {problem.objectives_lst}\n\n')
 
