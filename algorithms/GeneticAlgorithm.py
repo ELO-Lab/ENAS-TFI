@@ -9,7 +9,7 @@ from models import Population
 from utils import get_hashKey, set_seed
 
 from warm_up import get_population_X
-
+from sys import platform
 
 class GeneticAlgorithm(Algorithm):
     def __init__(self, **kwargs):
@@ -22,7 +22,12 @@ class GeneticAlgorithm(Algorithm):
                 F = self.evaluate(P[i].X)
                 P[i].set('F', F)
         else:
-            path_data = '/'.join(os.path.abspath(__file__).split('/')[:-2]) + '/prepopulation'
+            if platform == "linux" or platform == "linux2":
+                path_data = '/'.join(os.path.abspath(__file__).split('/')[:-2]) + '/prepopulation'
+            elif platform == "win32" or platform == "win64":
+                path_data = '\\'.join(os.path.abspath(__file__).split('\\')[:-2]) + '/prepopulation'
+            else:
+                raise ValueError()
             if self.problem.type_of_problem == 'single-objective':
                 path_data += '/SONAS'
             elif self.problem.type_of_problem == 'multi-objective':

@@ -8,6 +8,7 @@ from operators.crossover import PointCrossover
 from operators.mutation import BitStringMutation
 from operators.sampling.random_sampling import RandomSampling
 from operators.selection import TournamentSelection, RankAndCrowdingSurvival
+from sys import platform
 
 population_size_dict = {
     'SO-NAS101': 100, 'SO-NAS201-1': 40, 'SO-NAS201-2': 40, 'SO-NAS201-3': 40,
@@ -15,7 +16,27 @@ population_size_dict = {
 }
 
 def main(kwargs):
-    path_data = '/'.join(os.path.abspath(__file__).split('/')[:-1]) + '/data'
+    if platform == "linux" or platform == "linux2":
+        root_project = '/'.join(os.path.abspath(__file__).split('/')[:-1])
+    elif platform == "win32" or platform == "win64":
+        root_project = '\\'.join(os.path.abspath(__file__).split('\\')[:-1])
+    else:
+        raise ValueError()
+
+    if kwargs.path_results is None:
+        try:
+            os.makedirs(f'{root_project}/results/{kwargs.problem_name}')
+        except FileExistsError:
+            pass
+        PATH_RESULTS = f'{root_project}/results/{kwargs.problem_name}'
+    else:
+        try:
+            os.makedirs(f'{kwargs.path_results}/{kwargs.problem_name}')
+        except FileExistsError:
+            pass
+        PATH_RESULTS = f'{kwargs.path_results}/{kwargs.problem_name}'
+
+    path_data = root_project + '/data'
     problem = get_problem(problem_name=kwargs.problem_name, path_data=path_data)
     problem.set_up()
     ''' ==================================================================================================== '''
@@ -56,7 +77,7 @@ def main(kwargs):
         f'{warm_up}_{nSamples_for_warm_up}_'
         f'd%d_m%m_H%H_M%M_S%S')
 
-    root_path = kwargs.path_results + '/' + dir_name
+    root_path = PATH_RESULTS + '/' + dir_name
     os.mkdir(root_path)
     print(f'--> Create folder {root_path} - Done\n')
 
@@ -119,7 +140,7 @@ if __name__ == '__main__':
     parser.add_argument('--nSamples_for_warm_up', type=int, default=0)
 
     ''' ENVIRONMENT '''
-    parser.add_argument('--path_results', type=str, help='path for saving results')
+    parser.add_argument('--path_results', type=str, default=None, help='path for saving results')
     parser.add_argument('--n_runs', type=int, default=21, help='number of experiment runs')
     parser.add_argument('--seed', type=int, default=0, help='random seed')
     parser.add_argument('--debug', type=int, default=0, help='debug mode')

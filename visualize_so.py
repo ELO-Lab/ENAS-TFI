@@ -20,7 +20,7 @@ def visualize_2D_search(objective_0_mean, objective_1_mean, objective_1_stdev,
                         label, color, axis_labels=('x', 'y'),
                         plot_original=False):
     if plot_original:
-        plt.plot(objective_0_mean, objective_1_mean, 'k--', label=label, linewidth=1)
+        plt.step(objective_0_mean, objective_1_mean, 'k--', label=label, linewidth=1, where='post')
         plt.scatter(objective_0_mean, objective_1_mean, s=15, facecolors='none', edgecolors='red', marker='^',
                     label='Best Architecture Found')
 
@@ -29,7 +29,7 @@ def visualize_2D_search(objective_0_mean, objective_1_mean, objective_1_stdev,
                          objective_1_mean + objective_1_stdev, alpha=0.2, fc='black', step='post')
 
     else:
-        plt.plot(objective_0_mean, objective_1_mean, label=label, c=color)
+        plt.step(objective_0_mean, objective_1_mean, label=label, c=color, where='post')
         plt.scatter(objective_0_mean, objective_1_mean, s=15, facecolors='none',  edgecolors='red', marker='^')
 
         plt.fill_between(objective_0_mean,
@@ -45,7 +45,7 @@ def visualize_2D_evaluate(objective_0_mean, objective_1_mean, objective_1_stdev,
                           label, color, axis_labels=('x', 'y'),
                           plot_original=False):
     if plot_original:
-        plt.plot(objective_0_mean, tmp_objective_1_mean, 'k--', label=label, linewidth=1)
+        plt.step(objective_0_mean, tmp_objective_1_mean, 'k--', label=label, linewidth=1, where='post')
         plt.scatter(objective_0_mean, tmp_objective_1_mean, s=15, facecolors='none', edgecolors='blue', marker='^',
                     label='Best Architecture Found')
 
@@ -54,7 +54,7 @@ def visualize_2D_evaluate(objective_0_mean, objective_1_mean, objective_1_stdev,
                          tmp_objective_1_mean + tmp_objective_1_stdev, alpha=0.2, fc='black', step='post')
 
     else:
-        plt.plot(objective_0_mean, tmp_objective_1_mean, label=label, c=color)
+        plt.step(objective_0_mean, tmp_objective_1_mean, label=label, c=color, where='post')
         plt.scatter(objective_0_mean, tmp_objective_1_mean, s=15, facecolors='none',  edgecolors='blue', marker='^')
 
         plt.fill_between(objective_0_mean,
@@ -70,18 +70,18 @@ def visualize_2D_all(objective_0_mean, objective_1_mean, objective_1_stdev,
                      label, color, axis_labels=('x', 'y'),
                      plot_original=False):
     if plot_original:
-        plt.plot(objective_0_mean, objective_1_mean, 'k--', label=label, linewidth=1)
+        plt.step(objective_0_mean, objective_1_mean, 'k--', label=label, linewidth=1, where='post')
         plt.scatter(objective_0_mean, objective_1_mean, s=15, facecolors='none', edgecolors='red', marker='^', label='Best Architecture Found (validation)')
 
-        plt.plot(objective_0_mean, tmp_objective_1_mean, 'k--', linewidth=1)
+        plt.step(objective_0_mean, tmp_objective_1_mean, 'k--', linewidth=1, where='post')
         plt.scatter(objective_0_mean, tmp_objective_1_mean, s=15, facecolors='none', edgecolors='blue',
                     marker='^', label='Best Architecture Found (testing)')
 
     else:
-        plt.plot(objective_0_mean, objective_1_mean, label=label, c=color)
+        plt.step(objective_0_mean, objective_1_mean, label=label, c=color, where='post')
         plt.scatter(objective_0_mean, objective_1_mean, s=15, facecolors='none',  edgecolors='red', marker='^')
 
-        plt.plot(objective_0_mean, tmp_objective_1_mean, c=color)
+        plt.step(objective_0_mean, tmp_objective_1_mean, c=color, where='post')
         plt.scatter(objective_0_mean, tmp_objective_1_mean, s=15, edgecolors='blue', facecolors='none',
                     marker='^')
 
@@ -252,7 +252,14 @@ if __name__ == '__main__':
     N_RUNS = 21
     checked_lst = ['IGD', 'Hypervolume', 'nEvals', 'png']
 
-    path_data = '/'.join(os.path.abspath(__file__).split('\\')[:-1]) + '/data'
+    from sys import platform
+
+    if platform == "linux" or platform == "linux2":
+        path_data = '/'.join(os.path.abspath(__file__).split('/')[:-1]) + '/data'
+    elif platform == "win32" or platform == "win64":
+        path_data = '/'.join(os.path.abspath(__file__).split('\\')[:-1]) + '/data'
+    else:
+        raise ValueError()
     """ =========================================== """
     exp_0 = None
     problem_name = None

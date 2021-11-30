@@ -9,6 +9,7 @@ from models.population import Population
 from utils import get_hashKey, set_seed
 
 from warm_up import get_population_X
+from sys import platform
 
 
 INF = 9999999
@@ -29,7 +30,12 @@ class NSGAII(Algorithm):
                 self.E_Archive_search.update(P[i], algorithm=self)
 
         else:
-            path_data = '/'.join(os.path.abspath(__file__).split('\\')[:-2]) + '/prepopulation'
+            if platform == "linux" or platform == "linux2":
+                path_data = '/'.join(os.path.abspath(__file__).split('/')[:-2]) + '/prepopulation'
+            elif platform == "win32" or platform == "win64":
+                path_data = '\\'.join(os.path.abspath(__file__).split('\\')[:-2]) + '/prepopulation'
+            else:
+                raise ValueError()
             if self.problem.type_of_problem == 'single-objective':
                 path_data += '/SONAS'
             elif self.problem.type_of_problem == 'multi-objective':
