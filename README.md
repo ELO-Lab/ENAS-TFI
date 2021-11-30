@@ -48,9 +48,9 @@ python visualize_mo.py  --path_results [path_results]
 For example: ```python visualize_mo.py  --path_results C:\Files\MO-NAS101```
 
 ***Note:*** `[path_results]` ***must only contains results of experiments are conducted on the same problem.***
-## Results (in paper)
+<!-- ## Results (in paper)
 - Single-objective NAS problems:
 ![](https://github.com/FanKuan44/NICS/blob/master/figs/SONAS(1).png)
 
 - Multi-objective NAS problems:
-![](https://github.com/FanKuan44/NICS/blob/master/figs/MONAS(1).png)
+![](https://github.com/FanKuan44/NICS/blob/master/figs/MONAS(1).png) -->
