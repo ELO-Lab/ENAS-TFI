@@ -59,7 +59,8 @@ For example: ```python visualize_mo.py  --path_results C:\Files\MO-NAS101```
 ![](https://github.com/FanKuan44/NICS/blob/master/figs/MONAS(1).png) -->
 
 ## Acknowledgement
-Our code is inspired by:
+Our source code is inspired by:
+- [pymoo: Multi-objective Optimization in Python](https://github.com/anyoptimization/pymoo)
 - [NSGA-Net: Neural Architecture Search using Multi-Objective Genetic Algorithm](https://github.com/ianwhale/nsga-net)
 - [NAS-Bench-101: Towards Reproducible Neural Architecture Search](https://github.com/google-research/nasbench)
 - [NAS-Bench-201: Extending the Scope of Reproducible Neural Architecture Search](https://github.com/D-X-Y/NAS-Bench-201)
