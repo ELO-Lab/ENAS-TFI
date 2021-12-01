@@ -39,7 +39,7 @@ MO-NAS201-3|  NAS-Bench-201 | multi-objective | ImageNet16-120 | FLOPs & validat
 To search with the Warmup method, set `--warm_up 1` and set the number of samples `--nSamples_for_warm_up`. In our experiments, we set `--nSamples_for_warm_up 500`.
 
 To experiment with the different `population size` or `maximum number of evaluations`, set another value in [main.py](https://github.com/FanKuan44/NICS/blob/master/main.py) (for the population size) and [factory.py](https://github.com/FanKuan44/NICS/blob/master/factory.py) (for the maximum number of evaluations)
-### Evaluate
+### Evaluate & Visualize
 - For single-objective NAS problems:
 ```shell
 python visualize_so.py  --path_results [path_results]
