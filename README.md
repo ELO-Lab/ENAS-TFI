@@ -1,5 +1,8 @@
 # Efficiency Enhancement of Evolutionary Neural Architecture Search via Training-Free Initialization
 [![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
+
+Quan Minh Phan, Ngoc Hoang Luong
+<!-- In ICONIP 2021. -->
 ## Setup
 - Clone this repo:
 ```
@@ -54,3 +57,10 @@ For example: ```python visualize_mo.py  --path_results C:\Files\MO-NAS101```
 
 - Multi-objective NAS problems:
 ![](https://github.com/FanKuan44/NICS/blob/master/figs/MONAS(1).png) -->
+
+## Acknowledgement
+Our code is inspired by:
+- [NSGA-Net: Neural Architecture Search using Multi-Objective Genetic Algorithm](https://github.com/ianwhale/nsga-net)
+- [NAS-Bench-101: Towards Reproducible Neural Architecture Search](https://github.com/google-research/nasbench)
+- [NAS-Bench-201: Extending the Scope of Reproducible Neural Architecture Search](https://github.com/D-X-Y/NAS-Bench-201)
+- [How Powerful are Performance Predictors in Neural Architecture Search?](https://github.com/automl/NASLib)
