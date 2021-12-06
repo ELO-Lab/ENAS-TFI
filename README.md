@@ -2,18 +2,18 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 
 Quan Minh Phan, Ngoc Hoang Luong
-<!-- In ICONIP 2021. -->
+<!-- In NICS 2021. -->
 ## Setup
 - Clone this repo:
 ```
-$ git clone https://github.com/f4nku4n/ENAS_TFI
+$ git clone https://github.com/ELO-Lab/ENAS_TFI
 $ cd ENAS_TFI
 ```
 - Install dependencies:
 ```
 $ pip install -r requirements.txt
 ```
-- Download data in [here](https://drive.google.com/drive/u/0/folders/1j9EJY8xSqjtfsJ1Tgk333hpLMF50wOpa) and put into [*data*](https://github.com/f4nku4n/ENAS_TFI/tree/master/data) folder
+- Download data in [here](https://drive.google.com/drive/u/0/folders/1j9EJY8xSqjtfsJ1Tgk333hpLMF50wOpa) and put into [*data*](https://github.com/ELO-Lab/ENAS_TFI/tree/master/data) folder
 ## Usage
 ### Search
 - For single-objective NAS problems:
@@ -38,7 +38,7 @@ MO-NAS201-3|  NAS-Bench-201 | multi-objective | ImageNet16-120 | FLOPs & validat
 
 To search with the Warmup method, set `--warm_up 1` and set the number of samples `--nSamples_for_warm_up`. In our experiments, we set `--nSamples_for_warm_up 500`.
 
-To experiment with the different `population_size` or `maximum_number_of_evaluations`, set another value in [main.py](https://github.com/f4nku4n/ENAS_TFI/blob/master/main.py) (for `population_size`) and [factory.py](https://github.com/f4nku4n/ENAS_TFI/blob/master/factory.py) (for `maximum_number_of_evaluations`)
+To experiment with the different `population_size` or `maximum_number_of_evaluations`, set another value in [main.py](https://github.com/ELO-Lab/ENAS_TFI/blob/master/main.py) (for `population_size`) and [factory.py](https://github.com/ELO-Lab/ENAS_TFI/blob/master/factory.py) (for `maximum_number_of_evaluations`)
 ### Evaluate & Visualize
 - For single-objective NAS problems:
 ```shell
@@ -53,10 +53,10 @@ For example: ```python visualize_mo.py  --path_results .\results\MO-NAS101```
 ***Note:*** `[path_results]` ***must only contains results of experiments are conducted on the same problem.***
 <!-- ## Results (in paper)
 - Single-objective NAS problems:
-![](https://github.com/f4nku4n/ENAS_TFI/blob/master/figs/SONAS(1).png)
+![](https://github.com/ELO-Lab/ENAS_TFI/blob/master/figs/SONAS(1).png)
 
 - Multi-objective NAS problems:
-![](https://github.com/f4nku4n/ENAS_TFI/blob/master/figs/MONAS(1).png) -->
+![](https://github.com/ELO-Lab/ENAS_TFI/blob/master/figs/MONAS(1).png) -->
 
 ## Acknowledgement
 Our source code is inspired by:
