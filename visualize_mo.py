@@ -6,6 +6,7 @@ import pickle as p
 
 from pymoo.indicators.hv import _HyperVolume
 from scipy.interpolate import interp1d
+from sys import platform
 
 plt.rc('font', family='Times New Roman')
 
@@ -31,10 +32,12 @@ def get_nEvals_and_IGD(pop_size):
     nEvals_mean_each_exp = []
 
     for exp in experiments_list:
+        if '.' in exp:
+            continue
         IGD_each_run = []
         nEvals_each_run = []
 
-        n_runs = len(os.listdir(exp)) - 1
+        n_runs = len(['_' for f in os.listdir(exp) if '.' not in f])
         for i in range(n_runs):
             path_result = os.path.join(exp, f'{i}')
             tmp_data = np.array(p.load(open(os.path.join(path_result, '#Evals_and_IGD_each_gen.p'), 'rb')))
@@ -95,7 +98,14 @@ def visualize_nEvals_and_IGD(logX=None, logY=None):
     except:
         pass
 
-    hyperparameters = experiments_list[-1].split('\\')[-1][:-20].split('_')
+    for exp in experiments_list:
+        if '.' not in exp:
+            if platform == "linux" or platform == "linux2":
+                hyperparameters = exp.split('/')[-1][:-20].split('_')
+            else:
+                hyperparameters = exp.split('//')[-1][:-20].split('_')
+        else:
+            continue
     population_size = int(hyperparameters[2])
 
     nEvals_and_IGD = get_nEvals_and_IGD(population_size)
@@ -106,9 +116,14 @@ def visualize_nEvals_and_IGD(logX=None, logY=None):
     fig, ax = plt.subplots(1)
     axis_lbs = ['#Evals', 'IGD']
 
-    algorithm_name = None
     for i, exp in enumerate(experiments_list):
-        hyperparameters = exp.split('\\')[-1][:-20].split('_')
+        if '.' not in exp:
+            if platform == "linux" or platform == "linux2":
+                hyperparameters = exp.split('/')[-1][:-20].split('_')
+            else:
+                hyperparameters = exp.split('//')[-1][:-20].split('_')
+        else:
+            break
         algorithm_name = hyperparameters[1]
 
         variant_configuration = hyperparameters[3:]
@@ -142,7 +157,7 @@ def visualize_nEvals_and_IGD(logX=None, logY=None):
 def get_reference_point():
     max_f0, max_f1 = -np.inf, -np.inf
     for exp in experiments_list:
-        n_runs = len(os.listdir(exp)) - 1
+        n_runs = len(['_' for f in os.listdir(exp) if '.' not in f])
         for i in range(n_runs):
             f_reference_pt = os.path.join(exp, f'{i}', 'reference_point(evaluate).p')
             f0, f1 = p.load(open(f_reference_pt, 'rb'))
@@ -168,7 +183,7 @@ def get_nEvals_and_Hypervolume(hypervolume_calculator, reference_point, pop_size
         hypervolume_each_run = []
         nEvals_each_run = []
 
-        n_runs = len(os.listdir(exp)) - 1
+        n_runs = len(['_' for f in os.listdir(exp) if '.' not in f])
         for i in range(n_runs):
             path_result = os.path.join(exp, f'{i}')
             tmp_data = np.array(p.load(open(os.path.join(path_result, '#Evals_and_IGD_each_gen.p'), 'rb')))
@@ -241,7 +256,14 @@ def visualize_nEvals_and_Hypervolume(logX=None, logY=None):
     reference_point = get_reference_point()
     hypervolume_calculator = _HyperVolume(reference_point)
 
-    hyperparameters = experiments_list[-1].split('\\')[-1][:-20].split('_')
+    for exp in experiments_list:
+        if '.' not in exp:
+            if platform == "linux" or platform == "linux2":
+                hyperparameters = exp.split('/')[-1][:-20].split('_')
+            else:
+                hyperparameters = exp.split('//')[-1][:-20].split('_')
+        else:
+            continue
     population_size = int(hyperparameters[2])
 
     nEvals_and_Hypervolume = get_nEvals_and_Hypervolume(hypervolume_calculator, reference_point, population_size)
@@ -251,9 +273,14 @@ def visualize_nEvals_and_Hypervolume(logX=None, logY=None):
     fig, ax = plt.subplots(1)
     axis_lbs = ['#Evals', 'Hypervolume']
 
-    algorithm_name = None
     for i, exp in enumerate(experiments_list):
-        hyperparameters = exp.split('\\')[-1][:-20].split('_')
+        if '.' not in exp:
+            if platform == "linux" or platform == "linux2":
+                hyperparameters = exp.split('/')[-1][:-20].split('_')
+            else:
+                hyperparameters = exp.split('//')[-1][:-20].split('_')
+        else:
+            continue
         algorithm_name = hyperparameters[1]
 
         variant_configuration = hyperparameters[3:]
@@ -296,11 +323,11 @@ def main():
     visualize_nEvals_and_Hypervolume()
 
 if __name__ == '__main__':
+    LOG_X = True
+    LOG_Y = False
     parser = argparse.ArgumentParser()
     parser.add_argument('--path_results', type=str)
     args = parser.parse_args()
-    LOG_X = True
-    LOG_Y = False
     PATH_RESULTS = args.path_results
     checked_lst = ['IGD', 'Hypervolume', 'nEvals', 'png']
     """ =========================================== """
