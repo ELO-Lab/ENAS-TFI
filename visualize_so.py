@@ -100,7 +100,7 @@ def get_nGens_and_Accuracy():
         test_accuracy_each_run = []
         nGens_each_run = []
 
-        n_runs = len(os.listdir(exp)) - 1
+        n_runs = len(['_' for f in os.listdir(exp) if '.' not in f])
         for i in range(n_runs):
             path_result = os.path.join(exp, f'{i}')
             nGens_history, best_arch_history = p.load(open(os.path.join(path_result, 'best_architecture_each_gen.p'), 'rb'))
@@ -156,7 +156,13 @@ def visualize_nGens_and_Accuracy():
         axis_lbs = ['#Gens', 'Accuracy']
 
         for i, exp in enumerate(experiments_list):
-            hyperparameters = exp.split('\\')[-1][:-20].split('_')
+            if '.' not in exp:
+                if platform == "linux" or platform == "linux2":
+                    hyperparameters = exp.split('/')[-1][:-20].split('_')
+                else:
+                    hyperparameters = exp.split('//')[-1][:-20].split('_')
+            else:
+                break
             algorithm_name = hyperparameters[1]
             variant_configuration = hyperparameters[3:]
 
@@ -191,37 +197,37 @@ def visualize_nGens_and_Accuracy():
                                  plot_original=plot_original,
                                  axis_labels=axis_lbs, label=label, color=colors_list[i])
         plt.grid()
-        if problem_name in ['SO-NAS201-1', 'SO-NAS201-2', 'SO-NAS201-3']:
-            true_best_architecture = p.load(open(f'{path_data}/{benchmark}/[{dataset}]_best_arch.p', 'rb'))
-        else:
-            true_best_architecture = p.load(open(f'{path_data}/{benchmark}/best_arch.p', 'rb'))
+        # if problem_name in ['SO-NAS201-1', 'SO-NAS201-2', 'SO-NAS201-3']:
+        #     true_best_architecture = p.load(open(f'{path_data}/{benchmark}/[{dataset}]_best_arch.p', 'rb'))
+        # else:
+        #     true_best_architecture = p.load(open(f'{path_data}/{benchmark}/best_arch.p', 'rb'))
         x_limit = len(val_accuracy_mean_each_exp[-1])
         x_ = x_limit + 2
-        if require == 'search':
-            if benchmark == 'NASBench201':
-                true_best_architecture_val_acc = true_best_architecture['validation']['val_acc']
-            else:
-                true_best_architecture_val_acc = true_best_architecture['val_acc'][-1]
-            plt.scatter(x_, true_best_architecture_val_acc, marker='*', c='red', s=20,
-                        label='True Best Architecture')
-        elif require == 'evaluate':
-            if benchmark == 'NASBench201':
-                true_best_architecture_test_acc = true_best_architecture['testing']['test_acc']
-            else:
-                true_best_architecture_test_acc = true_best_architecture['test_acc'][-1]
-            plt.scatter(x_, true_best_architecture_test_acc, marker='*', c='blue', s=20,
-                        label='True Best Architecture')
-        else:
-            if benchmark == 'NASBench201':
-                true_best_architecture_val_acc = true_best_architecture['validation']['val_acc']
-                true_best_architecture_test_acc = true_best_architecture['testing']['test_acc']
-            else:
-                true_best_architecture_val_acc = true_best_architecture['val_acc'][-1]
-                true_best_architecture_test_acc = true_best_architecture['test_acc'][-1]
-            plt.scatter(x_, true_best_architecture_val_acc, marker='*', c='red', s=20,
-                        label='True Best Architecture (validation)')
-            plt.scatter(x_, true_best_architecture_test_acc, marker='*', c='blue', s=20,
-                        label='True Best Architecture (testing)')
+        # if require == 'search':
+        #     if benchmark == 'NASBench201':
+        #         true_best_architecture_val_acc = true_best_architecture['validation']['val_acc']
+        #     else:
+        #         true_best_architecture_val_acc = true_best_architecture['val_acc'][-1]
+        #     plt.scatter(x_, true_best_architecture_val_acc, marker='*', c='red', s=20,
+        #                 label='True Best Architecture')
+        # elif require == 'evaluate':
+        #     if benchmark == 'NASBench201':
+        #         true_best_architecture_test_acc = true_best_architecture['testing']['test_acc']
+        #     else:
+        #         true_best_architecture_test_acc = true_best_architecture['test_acc'][-1]
+        #     plt.scatter(x_, true_best_architecture_test_acc, marker='*', c='blue', s=20,
+        #                 label='True Best Architecture')
+        # else:
+        #     if benchmark == 'NASBench201':
+        #         true_best_architecture_val_acc = true_best_architecture['validation']['val_acc']
+        #         true_best_architecture_test_acc = true_best_architecture['testing']['test_acc']
+        #     else:
+        #         true_best_architecture_val_acc = true_best_architecture['val_acc'][-1]
+        #         true_best_architecture_test_acc = true_best_architecture['test_acc'][-1]
+        #     plt.scatter(x_, true_best_architecture_val_acc, marker='*', c='red', s=20,
+        #                 label='True Best Architecture (validation)')
+        #     plt.scatter(x_, true_best_architecture_test_acc, marker='*', c='blue', s=20,
+        #                 label='True Best Architecture (testing)')
         if LOG_Y:
             plt.xscale('log')
         if LOG_Y:

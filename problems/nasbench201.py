@@ -74,9 +74,9 @@ class NASBench201(Problem):
         f_data.close()
 
         if self.type_of_problem == 'single-objective':
-            f_best_arch = open(f'{self.path_data}/[{self.dataset}]_best_arch.p', 'rb')
-            self.best_arch = p.load(f_best_arch)['validation']
-            f_best_arch.close()
+            # f_best_arch = open(f'{self.path_data}/[{self.dataset}]_best_arch.p', 'rb')
+            self.best_arch = None
+            # f_best_arch.close()
         elif self.type_of_problem == 'multi-objective':
             f_min_max = open(f'{self.path_data}/[{self.dataset}]_min_max.p', 'rb')
             self.min_max = p.load(f_min_max)
